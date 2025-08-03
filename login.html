@@ -1,0 +1,178 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login - JalCycle</title>
+    <style>
+        body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: #e0f2fe;
+        /* background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(331deg, #667eea, #764ba2); */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        }
+        .login-container {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+        }
+        h2 {
+        text-align: center;
+        color: #1e40af;
+        margin-bottom: 1rem;
+        }
+        .input-group {
+        margin-bottom: 1rem;
+        }
+        label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        }
+        input[type="text"],
+        input[type="password"],
+        select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        }
+        .toggle-pass {
+        display: flex;
+        align-items: center;
+        margin-top: 0.4rem;
+        }
+        .toggle-pass input {
+        margin-right: 6px;
+        }
+        button {
+        width: 100%;
+        padding: 10px;
+        background-color: #2563eb;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        }
+        button:hover {
+        background-color: #1d4ed8;
+        }
+        .message {
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        }
+        .error {
+        color: #dc2626;
+        }
+        .success {
+        color: #16a34a;
+        }
+        .actionbtn
+        {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+        }
+        .actionbtn > button
+        {
+            padding-inline: 20px;
+        }
+    </style>
+    </head>
+    <body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+        <div class="input-group">
+            <label for="role">Select Role</label>
+            <select id="role" required>
+            <option value="">-- Choose Role --</option>
+            <option value="donor">Household Donor</option>
+            <option value="factory">Factory Client</option>
+            <option value="delivery">Delivery</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="loginId">Phone</label>
+            <input type="text" id="loginId" required />
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required />
+            <div class="toggle-pass">
+            <input type="checkbox" onclick="togglePassword()" /> Show Password
+            </div>
+        </div>
+        <div class="actionbtn">
+        <button type="submit">Login</button></br>
+        <span>if you don't have account <a href="register.html">Register</a></span>
+        </div>
+        <div class="message">
+            <p id="errorMessage" class="error" style="display: none;">Invalid credentials or role not selected.</p>
+            <p id="successMessage" class="success" style="display: none;">Login successful! Redirecting...</p>
+        </div>
+        </form>
+    </div>
+
+    <script>
+        function togglePassword() {
+        const pwd = document.getElementById("password");
+        pwd.type = pwd.type === "password" ? "text" : "password";
+        }
+
+        const loginForm = document.getElementById("loginForm");
+        loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const loginId = document.getElementById("loginId").value;
+        const password = document.getElementById("password").value;
+        const role = document.getElementById("role").value;
+        const errorMsg = document.getElementById("errorMessage");
+        const successMsg = document.getElementById("successMessage");
+
+        const validEmail = "user@jalcycle.org";
+        const validPhone = "1234567890";
+        const validPassword = "123";
+
+        if (!role) {
+            errorMsg.innerText = "Please select a role.";
+            errorMsg.style.display = "block";
+            return;
+        }
+
+        if ((loginId === validPhone) && password === validPassword) {
+            errorMsg.style.display = "none";
+            successMsg.style.display = "block";
+
+            setTimeout(() => {
+            // Redirect based on role
+            if (role === "donor") {
+                window.location.href = "donor.html";
+            } else if (role === "factory") {
+                window.location.href = "factory.html";
+            } else if (role === "delivery") {
+                window.location.href = "delivery.html";
+            }
+            }, 1500);
+        } else {
+            successMsg.style.display = "none";
+            errorMsg.innerText = "Invalid credentials.";
+            errorMsg.style.display = "block";
+        }
+        });
+    </script>
+
+    </body>
+    </html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delivery Dashboard - JalCycle</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f8ff;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 1rem 2rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      color: #1e40af;
+      margin: 0;
+    }
+
+    .dashboard-container {
+      padding: 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .card h2 {
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+    }
+
+    .stats-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      flex: 1;
+      background: #dbeafe;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 150px;
+    }
+
+    .stat h3 {
+      margin: 0.5rem 0;
+      font-size: 1.5rem;
+      color: #1e3a8a;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eff6ff;
+      color: #1e3a8a;
+    }
+
+    .btn-complete {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-complete:hover {
+      background-color: #1d4ed8;
+    }
+
+    /* Responsive Tables on Small Screens */
+    @media (max-width: 768px) {
+      .stats-grid {
+        flex-direction: column;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody tr {
+        margin-bottom: 1.5rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 1rem;
+        background: #fff;
+      }
+
+      td {
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+        border: none;
+        border-bottom: 1px solid #eee;
+      }
+
+      td:before {
+        position: absolute;
+        top: 0.75rem;
+        left: 1rem;
+        width: 45%;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #1e3a8a;
+      }
+
+      /* Label mappings */
+      td:nth-child(1):before { content: "ID"; }
+      td:nth-child(2):before { content: "Location / Name"; }
+      td:nth-child(3):before { content: "Quantity"; }
+      td:nth-child(4):before { content: "Time / ETA"; }
+      td:nth-child(5):before { content: "Action"; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>JalCycle Delivery Dashboard</h1>
+  </header>
+
+  <div class="dashboard-container">
+    <!-- Summary -->
+    <div class="card">
+      <h2>Today's Summary</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <strong>Total Deliveries</strong>
+          <h3>30</h3>
+        </div>
+        <div class="stat">
+          <strong>Completed Today</strong>
+          <h3>18</h3>
+        </div>
+        <div class="stat">
+          <strong>In Progress</strong>
+          <h3>12</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pickup Requests -->
+    <div class="card">
+      <h2>Pickup Requests from Households</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Pickup ID</th>
+            <th>Household</th>
+            <th>Quantity</th>
+            <th>Requested Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="pickupTable">
+          <tr>
+            <td>#PU-2301</td>
+            <td>Ravi Sharma<br><small>Sector 21, Block A</small></td>
+            <td>500 Liters</td>
+            <td>11:00 AM</td>
+            <td><button class="btn-complete" onclick="pickupDone(this)">Confirm Pickup</button></td>
+          </tr>
+          <tr>
+            <td>#PU-2302</td>
+            <td>Meena Patel<br><small>Green Valley, Street 3</small></td>
+            <td>1,000 Liters</td>
+            <td>12:30 PM</td>
+            <td><button class="btn-complete" onclick="pickupDone(this)">Confirm Pickup</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Active Deliveries -->
+    <div class="card">
+      <h2>Active Deliveries</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Delivery ID</th>
+            <th>Location</th>
+            <th>Quantity</th>
+            <th>ETA</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="deliveryTable">
+          <tr>
+            <td>#DEL-1032</td>
+            <td>Factory X, Zone 2</td>
+            <td>10,000 Liters</td>
+            <td>45 mins</td>
+            <td><button class="btn-complete" onclick="markComplete(this)">Mark as Done</button></td>
+          </tr>
+          <tr>
+            <td>#DEL-1033</td>
+            <td>Factory Y, Zone 3</td>
+            <td>5,000 Liters</td>
+            <td>30 mins</td>
+            <td><button class="btn-complete" onclick="markComplete(this)">Mark as Done</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function markComplete(button) {
+      const row = button.closest('tr');
+      row.remove();
+      alert("✅ Delivery marked as complete.");
+    }
+
+    function pickupDone(button) {
+      const row = button.closest('tr');
+      row.remove();
+      alert("✅ Pickup confirmed.");
+    }
+  </script>
+</body>
+</html>

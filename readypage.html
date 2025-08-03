@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JalCycle - Donor Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f9ff;
+    }
+    header {
+      background-color: #1e40af;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    main {
+      padding: 2rem;
+    }
+    .dashboard {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .dashboard h2 {
+      color: #1e3a8a;
+    }
+    .info {
+      margin: 1.5rem 0;
+    }
+    .ready-button {
+      background-color: #16a34a;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .ready-button:hover {
+      background-color: #15803d;
+    }
+    .status-message {
+      margin-top: 1rem;
+      color: #0f5132;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>JalCycle - Donor Dashboard</h1>
+  </header>
+  <main>
+    <div class="dashboard">
+      <h2>Welcome, Household Donor</h2>
+      <p class="info">Click the button below when your water is ready for pickup.</p>
+      <button class="ready-button" onclick="markReady()">Ready for Delivery</button>
+      <p class="status-message" id="status"></p>
+    </div>
+  </main>
+
+  <script>
+    function markReady() {
+      const status = document.getElementById("status");
+      status.textContent = "✅ Your pickup request has been marked as ready! Our team will arrive shortly.";
+    }
+  </script>
+</body>
+</html>

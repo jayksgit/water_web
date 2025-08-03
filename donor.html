@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donor Dashboard - JalCycle</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+    }
+    header {
+      background: #1e40af;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+    }
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    .card h2 {
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+    }
+    .stats-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      flex: 1;
+      background: #dbeafe;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 140px;
+    }
+    .stat h3 {
+      margin: 0.5rem 0;
+      font-size: 1.5rem;
+      color: #1e3a8a;
+    }
+    .btn-ready {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .btn-ready:hover {
+      background-color: #1d4ed8;
+    }
+    .message {
+      margin-top: 1rem;
+      color: green;
+      font-weight: bold;
+    }
+    @media (max-width: 600px) {
+      .stats-grid {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>JalCycle - Donor Dashboard</h1>
+    <nav>
+      <a href="#">Profile</a>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>Welcome, Household Donor!</h2>
+      <p>Here's your water contribution summary:</p>
+
+      <div class="stats-grid">
+        <div class="stat">
+          <strong>Total Water Donated</strong>
+          <h3>1200 Liters</h3>
+        </div>
+        <div class="stat">
+          <strong>Pickups Scheduled</strong>
+          <h3>15</h3>
+        </div>
+        <div class="stat">
+          <strong>Last Donation</strong>
+          <h3>2 Days Ago</h3>
+        </div>
+      </div>
+
+    </div>
+    <div class="card">
+        
+      <button class="btn-ready" onclick="markReady()">Ready for Delivery</button>
+      <div class="message" id="confirmationMsg"></div>
+    </div>
+  </div>
+
+  <script>
+    function markReady() {
+      document.getElementById('confirmationMsg').innerText = "✅ Pickup request sent. Thank you for donating!";
+    }
+  </script>
+
+</body>
+</html>

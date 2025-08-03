@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Factory Dashboard - JalCycle</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+    }
+    header {
+      background: #1e40af;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .btn-ready
+    {
+        width: 100%;
+        background-color: rgb(61, 61, 247); /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    .card h2 {
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+    }
+    .stats-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      flex: 1;
+      background: #e0f2fe;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 180px;
+    }
+    .stat h3 {
+      margin: 0.5rem 0;
+      font-size: 1.6rem;
+      color: #1e3a8a;
+    }
+    .btn-request {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .btn-request:hover {
+      background-color: #059669;
+    }
+    .message {
+      margin-top: 1rem;
+      color: green;
+      font-weight: bold;
+    }
+    @media (max-width: 600px) {
+      .stats-grid {
+        flex-direction: column;
+      }
+    }
+    .order-item {
+  display: flex;
+  align-items: center;
+  background: #f9fafb;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.item-details {
+  flex: 2;
+  min-width: 150px;
+}
+
+.price {
+  flex: 1;
+  font-weight: bold;
+  color: #1e3a8a;
+  min-width: 80px;
+}
+
+.qty {
+  flex: 0.5;
+  padding: 0.3rem;
+  border-radius: 6px;
+}
+
+.remove-btn {
+  flex: 0.5;
+  padding: 0.4rem 0.8rem;
+  background-color: #e11d48;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: #be123c;
+}
+
+.status {
+  display: inline-block;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.in-stock {
+  color: green;
+}
+.out-stock {
+  color: red;
+}
+.ships-soon {
+  color: #065f46;
+}
+
+@media (max-width: 600px) {
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form label {
+  font-weight: bold;
+  color: #1e3a8a;
+}
+
+form select,
+form input {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+}
+
+#requestMsg {
+  color: green;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+  </style>
+</head>
+<body>
+<!--  -->
+  <header>
+    <h1>JalCycle - Factory Dashboard</h1>
+    <nav>
+      <a href="#">Profile</a>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- <div class="card">
+      <h2>Welcome, Factory Client!</h2>
+      <p>Here’s your water delivery summary:</p>
+
+      <div class="stats-grid">
+        <div class="stat">
+          <strong>Total Water Received</strong>
+          <h3>6,000 Liters</h3>
+        </div>
+        <div class="stat">
+          <strong>Deliveries Completed</strong>
+          <h3>20</h3>
+        </div>
+        <div class="stat">
+          <strong>Next Delivery ETA</strong>
+          <h3>In 4 Hours</h3>
+        </div>
+      </div>
+
+      <button class="btn-request" onclick="requestWater()">Request More Water</button>
+      <div class="message" id="requestMsg"></div>
+    </div> -->
+ <div class="card">
+  <h2>Factory Water Usage Summary</h2>
+  <div class="stats-grid">
+    <div class="stat">
+      <strong>Total Orders</strong>
+      <h3>12</h3>
+    </div>
+    <div class="stat">
+      <strong>Total Water Requested</strong>
+      <h3>65,000 Liters</h3>
+    </div>
+    <div class="stat">
+      <strong>Active Deliveries</strong>
+      <h3>3</h3>
+    </div>
+    <div class="stat">
+      <strong>Last Order</strong>
+      <h3>1 Day Ago</h3>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>New Water Request</h2>
+  <form id="requestForm" onsubmit="submitRequest(event)">
+    <label>Tank Size:</label>
+    <select id="tankSize" required>
+      <option value="">-- Select Size --</option>
+      <option value="500">500 Liters</option>
+      <option value="1000">1000 Liters</option>
+      <option value="5000">5000 Liters</option>
+      <option value="10000">10,000 Liters</option>
+    </select>
+
+    <label>Quantity:</label>
+    <input type="number" id="quantity" min="1" value="1" required />
+
+    <button type="submit" class="btn-ready">Request Water</button>
+    <div class="message" id="requestMsg"></div>
+  </form>
+</div>
+
+    <div class="card">
+    <div class="card">
+  <h2>Requested Water Tanks</h2>
+  <div class="order-item" style="border-left: 5px solid #facc15;">
+    <img src="https://img.icons8.com/color/96/water-tank-truck.png" width="50" />
+    <div class="item-details">
+      <strong>500 litre tank</strong>
+      <p>Dark Brown Leather Medium</p>
+      <span class="status in-stock">✔ In Stock</span>
+    </div>
+    <div class="price">Rs 500</div>
+    <select class="qty">
+      <option>1</option><option>2</option><option>3</option>
+    </select>
+    <button class="remove-btn">Remove</button>
+  </div>
+
+  <div class="order-item" style="border-left: 5px solid #ef4444;">
+    <img src="https://img.icons8.com/color/96/water-tank-truck.png" width="50" />
+    <div class="item-details">
+      <strong>10,000 litre tank</strong>
+      <p>Recyclable plastic</p>
+      <span class="status out-stock">✖ Out of stock</span>
+    </div>
+    <div class="price">Rs 8000</div>
+    <select class="qty">
+      <option>1</option><option selected>2</option><option>3</option>
+    </select>
+    <button class="remove-btn">Remove</button>
+  </div>
+
+  <div class="order-item" style="border-left: 5px solid #10b981;">
+    <img src="https://img.icons8.com/color/96/water-tank-truck.png" width="50" />
+    <div class="item-details">
+      <strong>5,000 litre tank</strong>
+      <p>Dark Brown Leather Medium</p>
+      <span class="status ships-soon">🚚 Ships in 2 hours</span>
+    </div>
+    <div class="price">Rs 4000</div>
+    <select class="qty">
+      <option selected>1</option><option>2</option><option>3</option>
+    </select>
+    <button class="remove-btn">Remove</button>
+  </div>
+</div>
+
+
+ </div>  
+</div>
+
+  <script>
+    function requestWater() {
+      document.getElementById('requestMsg').innerText = "✅ Water request submitted. Awaiting confirmation!";
+    }
+  </script>
+
+</body>
+</html>
